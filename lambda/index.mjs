@@ -12,7 +12,7 @@ import { SES } from '@aws-sdk/client-ses';
 
 const dynamo = DynamoDBDocumentClient.from(new DynamoDB({ region: 'us-east-1' }));
 const ses = new SES({ region: 'us-east-1' });
-const senderEmail = "mblakestuff@gmail.com";
+const senderEmail = "jweisbakery@gmail.com";
 
 export const handler = async(event) => {
     console.log(event);
@@ -87,7 +87,7 @@ async function sendEmailConfirmation(recipientEmail) {
         },
         Subject: { Data: "Form Submission Confirmation" },
       },
-      Source: senderEmail, // Verified email in SES
+      Source: senderEmail,
     };
   
     try {
