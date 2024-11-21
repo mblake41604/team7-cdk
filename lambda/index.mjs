@@ -76,24 +76,30 @@ function dynamictable(html, tableQuery) {
     return html.replace("{table}", "<h4>DynamoDB:</h4>" + table);
 }
 
+// lambda triggers email sent through ses
 async function sendEmailConfirmation(recipientEmail) {
     const emailParams = {
-      Destination: {
-        ToAddresses: [recipientEmail],
-      },
-      Message: {
-        Body: {
-          Text: { Data: "Thank you for submitting the form!" },
+        Destination: {
+          ToAddresses: [recipientEmail],
         },
-        Subject: { Data: "Form Submission Confirmation" },
-      },
-      Source: senderEmail,
-    };
+        Message: {
+          Body: {
+            Text: { Data: `Thank you for your interest in joining jWeis's Bread Bakery team! Your application means a lot to us and we’re excited to learn more about your love for break-making and the unique touch you’ll add to our growing team!
+  
+We are deeply committed to crafting a warm and inviting space where we can bake our artisanal bread and pastries with care and passion. As such we will be reviewing your application shortly, with care, and will get back to you regarding the next steps. In the mean time, drop by and get a loaf of sourdough bread on us!
+  
+  Warm Regards,
+  The JWeis's Bread Bakery Team` },
+          },
+          Subject: { Data: "Thank You for Your Interest in JWeis's Bread Bakery!" },
+        },
+        Source: senderEmail,
+      }; 
   
     try {
       const result = await ses.sendEmail(emailParams);
-      console.log("Email sent successfully:", result);
+      console.log("Email sent:", result);
     } catch (error) {
-      console.error("Error sending email:", error);
+      console.error("Email error:", error);
     }
   }
