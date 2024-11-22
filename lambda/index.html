@@ -1,12 +1,15 @@
+<!-- with BUBBLE FONTS AND IT IS WHITE -->
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Suggestion Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Helvetica Neue', Georgia, sans-serif;
+            font-family: 'Baloo Bhai 2', cursive;
             background-color: #e6d3b1;
             display: flex;
             justify-content: center;
@@ -19,13 +22,13 @@
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            width: 350px;
+            width: 600px;
             text-align: center;
         }
         h1 {
             text-align: left;
             font-weight: bold;
-            color: #3e2c20;
+            color: white;
             font-size: 2.5rem;
             margin-bottom: 20px;
             margin-top: 60px;
@@ -34,7 +37,7 @@
             font-weight: bold;
             display: block;
             margin-top: 15px;
-            color: #3e2c20;
+            color: white;
             text-align: left;
         }
         input[type="text"],
@@ -48,7 +51,8 @@
             border-radius: 6px;
             box-sizing: border-box;
             background-color: #d4b59e;
-            color: #3e2c20;
+            color: white;
+            font-family: 'Baloo Bhai 2', cursive;
         }
         textarea {
             height: 100px;
@@ -65,24 +69,26 @@
             cursor: pointer;
             font-weight: bold;
             text-transform: uppercase;
+            font-family: 'Baloo Bhai 2', cursive;
         }
         input[type="submit"]:hover {
             background-color: #7a5d45;
         }
-        .question-box {
-            background-color: #c4a484;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 20px;
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
         }
-        .question-box label {
-            font-weight: normal;
-            color: #3e2c20;
+        .logo img {
+            max-width: 400px;
+            height: 300px;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="logo">
+            <img src="https://assets.onecompiler.app/42yb8r85e/42ywdfxg7/Screenshot%202024-11-22%20at%202.25.47%E2%80%AFPM.png" alt="jWeis's Bread Bakery Logo">
+        </div>
         <h1 style="text-align: center;">jWeis's Bread Bakery</h1>
         <form action="/" method="GET">
             <label for="firstName">First Name</label>
@@ -94,20 +100,14 @@
             <label for="email">Email</label>
             <input type="email" id="email" name="email" placeholder="Enter your email here" required>
 
-            <div class="question-box">
-                <label for="breadType">Why work at JWeis's Bread Bakery?</label>
-                <input type="text" id="breadType" name="breadType" placeholder="Answer here" required>
-            </div>
+            <label for="why">Why work at JWeis's Bread Bakery?</label>
+            <textarea name="why" placeholder="Answer here" rows="4" cols="50"></textarea>
 
-            <div class="question-box">
-                <label for="breadFrequency">What is your experience with bread making?</label>
-                <input type="text" id="breadFrequency" name="breadFrequency" placeholder="Answer here" required>
-            </div>
+            <label for="experience">What is your experience with bread making?</label>
+            <textarea name="experience" placeholder="Answer here" rows="4" cols="50"></textarea>
 
-            <div class="question-box">
-                <label for="breadUse">What type of data structure would your favorite bread be and why?</label>
-                <input type="text" id="breadUse" name="breadUse" placeholder="Answer here" required>
-            </div>
+            <label for="dataStructure">What type of data structure would your favorite bread be and why?</label>
+            <textarea name="dataStructure" placeholder="Answer here" rows="4" cols="50"></textarea>
 
             <input type="submit" value="Submit">
         </form>
