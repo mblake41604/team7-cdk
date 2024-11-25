@@ -35,32 +35,22 @@ export const handler = async(event) => {
     }
 
     const html = await readFile('index.html', { encoding: 'utf8' });
+    // append form input values to function URL and add to html
     const modifiedHTML = dynamicForm(html, event.queryStringParameters);
-    const params = {
-        TableName: "team7_dynamo",
-        KeyConditionExpression: "PK = :PK",
-        ExpressionAttributeValues: {
-            ":PK": "form"
-        }
-    };
-    // query DynamoDB table to get table values for output
-    const queryCommand = new QueryCommand(params);
-    const queryResult = await dynamo.send(queryCommand);
-    console.log("DynamoDB query operation result:", JSON.stringify(queryResult, null, 2));
-    const newmodifiedHTML = dynamictable(modifiedHTML, queryResult);
+    
     const response = {
         statusCode: 200,
         headers: {
             'Content-Type': 'text/html',
         },
         // form input values is added to Lambda function response
-        body: newmodifiedHTML,
+        body: modifiedHTML,
     };
 
     return response;
 };
 
-// helper function to append form input values to function URL
+// helper function to append form input values to function URL and add to html
 function dynamicForm(html, queryStringParameters) {
     let formres = '';
     if (queryStringParameters) {
@@ -69,18 +59,6 @@ function dynamicForm(html, queryStringParameters) {
         });
     }
     return html.replace('{formResults}', '<h4>Form Submission: ' + formres + '</h4>');
-}
-
-// helper function to format table results into HTML list
-function dynamictable(html, tableQuery) {
-    let table = '';
-    if (tableQuery.Items.length > 0) {
-        for (let i = 0; i < tableQuery.Items.length; i++) {
-            table = table + "<li>" + JSON.stringify(tableQuery.Items[i]) + "</li>";
-        }
-        table = "<pre>" + table + "</pre>";
-    }
-    return html.replace("{table}", "<h4>DynamoDB:</h4>" + table);
 }
 
 // lambda triggers email sent through ses
