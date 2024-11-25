@@ -8,9 +8,15 @@ This file defines our CDK stack and resources using AWS CDK L2 constructs. We de
 
 We use an HTTP API Gateway, which creates a URL to access the web application after deployment. Whenever a request comes through the API Gateway, it is sent to the Lambda function. We create a route that accepts GET requests, as this method is used for our form in the html page. 
 
-For security, our Lambda function has an execution role. And we add IAM policies to secure it. We allow the Lambda function only to retrieve and write data to the specific DynamoDB table using Query and PutItem. We allow the Lambda function to send emails using AWS SES to any recipient. And we grant the API Gateway permission to invoke the Lambda function.
+For security through AWS Identity and Access Management (IAM), we create an execution role to grant our Lambda function permission to access other AWS services. And we attach IAM permissions policies to secure it. We allow the Lambda function only to retrieve and write data to the specific DynamoDB table using Query and PutItem. We allow the Lambda function to send emails using AWS SES to any recipient. And we grant the API Gateway permission to invoke the Lambda function.
 
 ## lambda/index.mjs
+
+We use the helper function dynamicForm to append the form input values to the function URL and HTML page. These values are added to the Lambda function response.
+
+We use PutCommand to persist a new item to the DynamoDB table. The form input values are available to use through queryStringParameters, and can be placed in the item.
+
+Here our Lambda function triggers an email to be sent to the email the user input in the form. This is sent from jweisbakery@gmail.com through AWS SES, which was configured as a SES email address identity.
 
 ## Scripts to run project
 

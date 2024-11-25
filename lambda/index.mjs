@@ -10,15 +10,18 @@ import { SES } from '@aws-sdk/client-ses';
  * @returns {Object} The response object containing the HTML page.
  */
 
+// set constants
 const dynamo = DynamoDBDocumentClient.from(new DynamoDB({ region: 'us-east-1' }));
 const ses = new SES({ region: 'us-east-1' });
-const senderEmail = "jweisbakery@gmail.com";
+const senderEmail = "jweisbakery@gmail.com"; // SES configured email address identity
 
 export const handler = async(event) => {
     console.log(event);
     
     if (event.queryStringParameters) {
+        // find 'email' from form input values, and set as recipient email address
         const recipEmail = event.queryStringParameters.email;
+        // persist new item to table
         await dynamo.send(new PutCommand({
             TableName: "team7_dynamo",
             Item: {
@@ -27,6 +30,7 @@ export const handler = async(event) => {
                 form: event.queryStringParameters
             },
         }));
+        // await email sent through SES
         await sendEmailConfirmation(recipEmail);
     }
 
@@ -39,7 +43,7 @@ export const handler = async(event) => {
             ":PK": "form"
         }
     };
-
+    // query DynamoDB table to get table values for output
     const queryCommand = new QueryCommand(params);
     const queryResult = await dynamo.send(queryCommand);
     console.log("DynamoDB query operation result:", JSON.stringify(queryResult, null, 2));
@@ -49,12 +53,14 @@ export const handler = async(event) => {
         headers: {
             'Content-Type': 'text/html',
         },
+        // form input values is added to Lambda function response
         body: newmodifiedHTML,
     };
 
     return response;
 };
 
+// helper function to append form input values to function URL
 function dynamicForm(html, queryStringParameters) {
     let formres = '';
     if (queryStringParameters) {
@@ -65,6 +71,7 @@ function dynamicForm(html, queryStringParameters) {
     return html.replace('{formResults}', '<h4>Form Submission: ' + formres + '</h4>');
 }
 
+// helper function to format table results into HTML list
 function dynamictable(html, tableQuery) {
     let table = '';
     if (tableQuery.Items.length > 0) {
