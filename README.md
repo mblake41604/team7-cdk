@@ -1,6 +1,6 @@
 # Team 7 Resume Reader
 
-This project creates an HTTP serverless web application through AWS API Gateway, where users can apply to jWeis's Bread Bakery. When users submit the form, it triggers an AWS Lambda function, which sends the information to AWS DynamoDB table. This is where the company can review applicants, with each applicant's information as its own item in the table. As well, the Lambda function will trigger AWS Simple Email Service (SES) to send a confirmation email to the applicant that their application was submitted. This project has a fully automated deployment through AWS CDK.
+This project creates an HTTP serverless web application through AWS API Gateway, where users can apply to jWeis's Bread Bakery. When users submit the form, it triggers an AWS Lambda function, which sends the information to AWS DynamoDB table. This is where the company can review applicants, with each applicant's information as its own item in the table. As well, the Lambda function will trigger AWS Simple Email Service (SES) to send a confirmation email to the applicant that their application was submitted. This project has a fully automated deployment through AWS CDK, and launched using a single CLI command.
 
 ## lib/team7-cdk-stack.js
 
@@ -19,6 +19,18 @@ We use the PutCommand to persist a new item to our DynamoDB table. The form inpu
 Here, we await a call to our helper function. Our Lambda function triggers an email to be sent to the email the user input in the form. This is sent from jweisbakery@gmail.com through AWS SES, which was configured as a SES email address identity.
 
 We use the helper function dynamicForm, which will append the form input values to the function URL and HTML page. The result of the helper function is added to the Lambda function response.
+
+## Supplemental files in this project
+`scalability.txt`
+This file documents how our services offer the ability to scale during scenarios when there is heavy traffic.
+
+`cloudwatchLogs.txt`
+This file is a direct copy of the CloudWatch Dashboard logs for a form submission.
+
+`architecture.png`
+This file is a diagram of how our AWS services interact with each other to produce our project.
+
+For a source control system, we used github to track previous versions. And every member is able to replicate the project on their device using git clone.
 
 ## Scripts to run project
 
