@@ -1,4 +1,6 @@
-# Team 7 Resume Reader
+# Team 7 jWeis's Bakery Application
+
+McKenna Blake, Nancy Vi, Hoang Truc Kim, Veronica Arutyunyants, Shruti Susarla
 
 This project creates an HTTP serverless web application through AWS API Gateway, where users can apply to jWeis's Bread Bakery. When users submit the form, it triggers an AWS Lambda function, which sends the information to AWS DynamoDB table. This is where the company can review applicants, with each applicant's information as its own item in the table. As well, the Lambda function will trigger AWS Simple Email Service (SES) to send a confirmation email to the applicant that their application was submitted. This project has a fully automated deployment through AWS CDK, and launched using a single CLI command.
 
